@@ -1,3 +1,4 @@
+VAGRANTFILE_API_VERSION = "2"
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
@@ -5,7 +6,7 @@
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
-Vagrant.configure("2") do |config|
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
@@ -13,6 +14,14 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   # config.vm.box = "base"
+
+    config.vm.box = "v0rtex/xenial64"
+
+    # Mount shared folder using NFS
+    config.vm.synced_folder ".", "/vagrant",
+        id: "core",
+        :nfs => true,
+    :mount_options => ['nolock,vers=3,udp,noatime']
   
 
   # Disable automatic box update checking. If you disable this, then
@@ -68,4 +77,5 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
+  config.vm.provision :shell, :path => "bootstrap.sh"
 end
