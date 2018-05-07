@@ -34,22 +34,22 @@ sed -i "s/error_reporting = .*/error_reporting = E_ALL/" /etc/php/7.1/apache2/ph
 sed -i "s/display_errors = .*/display_errors = On/" /etc/php/7.1/apache2/php.ini
 sudo a2enmod rewrite
 
-echo "-- Creating virtual hosts --"
-sudo ln -fs /vagrant/public/ /var/www/app
-cat << EOF | sudo tee -a /etc/apache2/sites-available/default.conf
-<Directory "/var/www/">
-    AllowOverride All
-</Directory>
-<VirtualHost *:80>
-    DocumentRoot /var/www/app
-    ServerName app.local
-</VirtualHost>
-<VirtualHost *:80>
-    DocumentRoot /var/www/phpmyadmin
-    ServerName phpmyadmin.local
-</VirtualHost>
-EOF
-sudo a2ensite default.conf
+# echo "-- Creating virtual hosts --"
+# sudo ln -fs /vagrant/public/ /var/www/app
+# cat << EOF | sudo tee -a /etc/apache2/sites-available/default.conf
+# <Directory "/var/www/">
+#     AllowOverride All
+# </Directory>
+# <VirtualHost *:80>
+#     DocumentRoot /var/www/app
+#     ServerName app.local
+# </VirtualHost>
+# <VirtualHost *:80>
+#     DocumentRoot /var/www/phpmyadmin
+#     ServerName phpmyadmin.local
+# </VirtualHost>
+# EOF
+# sudo a2ensite default.conf
 
 echo "-- Restart Apache --"
 sudo /etc/init.d/apache2 restart
@@ -58,6 +58,11 @@ echo "-- Install Composer --"
 curl -s https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
 sudo chmod +x /usr/local/bin/composer
+
+# locale
+sudo apt-get install language-pack-ko
+# or
+# sudo locale-gen ko_KR.UTF-8
 
 # echo "-- Install phpMyAdmin --"
 # wget -k https://files.phpmyadmin.net/phpMyAdmin/4.8.0.1/phpMyAdmin-4.8.0.1-english.tar.gz
