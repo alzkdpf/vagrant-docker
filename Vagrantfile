@@ -17,13 +17,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.box = "v0rtex/xenial64"
 
-    # Mount shared folder using NFS
-    config.vm.synced_folder ".", "/vagrant",
-        id: "core",
-        :nfs => true,
-    :mount_options => ['nolock,vers=3,udp,noatime']
-  
-
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
@@ -54,6 +47,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
+  # Mount shared folder using NFS
+
+  ## other options
+  config.vm.synced_folder ".", "/vagrant"
+  # config.vm.synced_folder ".", "/vagrant",
+  # id: "core",
+  # :nfs => true,
+  # :mount_options => ['nolock,vers=3,udp,noatime']
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -69,6 +70,28 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   # View the documentation for the provider you are using for more
   # information on available options.
+  # Assign a quarter of host memory and all available CPU's to VM
+  # Depending on host OS this has to be done differently.
+  config.vm.provider :virtualbox do |vb|
+      host = RbConfig::CONFIG['host_os']
+
+      if host =~ /darwin/
+          cpus = `sysctl -n hw.ncpu`.to_i
+          mem = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 4
+
+      elsif host =~ /linux/
+          cpus = `nproc`.to_i
+          mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
+
+      # Windows...
+      else
+          cpus = 4
+          mem = 2048
+      end
+
+      vb.customize ["modifyvm", :id, "--memory", mem]
+      vb.customize ["modifyvm", :id, "--cpus", cpus]
+  end
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the

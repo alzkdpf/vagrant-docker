@@ -59,12 +59,12 @@ curl -s https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
 sudo chmod +x /usr/local/bin/composer
 
-echo "-- Install phpMyAdmin --"
-wget -k https://files.phpmyadmin.net/phpMyAdmin/4.8.0.1/phpMyAdmin-4.8.0.1-english.tar.gz
-sudo tar -xzvf phpMyAdmin-4.8.0.1-english.tar.gz -C /var/www/
-sudo rm phpMyAdmin-4.8.0.1-english.tar.gz
-sudo mv /var/www/phpMyAdmin-4.8.0.1-english/ /var/www/phpmyadmin
+# echo "-- Install phpMyAdmin --"
+# wget -k https://files.phpmyadmin.net/phpMyAdmin/4.8.0.1/phpMyAdmin-4.8.0.1-english.tar.gz
+# sudo tar -xzvf phpMyAdmin-4.8.0.1-english.tar.gz -C /var/www/
+# sudo rm phpMyAdmin-4.8.0.1-english.tar.gz
+# sudo mv /var/www/phpMyAdmin-4.8.0.1-english/ /var/www/phpmyadmin
 
-echo "-- Setup databases --"
-mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION; FLUSH PRIVILEGES;"
-mysql -uroot -proot -e "CREATE DATABASE my_database";
+# echo "-- Setup databases --"
+# mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+# mysql -uroot -proot -e "CREATE DATABASE my_database";
