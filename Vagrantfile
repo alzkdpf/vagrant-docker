@@ -14,8 +14,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   # config.vm.box = "base"
+  
+  # config.vm.box = "v0rtex/xenial64"
 
-    config.vm.box = "v0rtex/xenial64"
+  config.vm.define "centos" do |centos|
+    centos.vm.box = "v0rtex/xenial64"
+    config.vm.provider :virtualbox do |vb|
+        vb.name = "centos"
+    end
+  end
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
