@@ -17,10 +17,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   # config.vm.box = "v0rtex/xenial64"
 
-  config.vm.define "centos" do |centos|
-    centos.vm.box = "v0rtex/xenial64"
+  config.vm.define "vagrant-server" do |os|
+    os.vm.box = "v0rtex/xenial64"
     config.vm.provider :virtualbox do |vb|
-        vb.name = "centos"
+        vb.name = "vagrant-server"
     end
   end
 
@@ -107,5 +107,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
-  config.vm.provision :shell, :path => "bootstrap.sh"
+  config.vm.provision :shell, :path => "bootstrap.1.sh"
 end
