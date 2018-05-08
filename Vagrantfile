@@ -15,8 +15,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # boxes at https://vagrantcloud.com/search.
   # config.vm.box = "base"
   
-  # config.vm.box = "v0rtex/xenial64"
-
   config.vm.define "vagrant-server" do |os|
     os.vm.box = "v0rtex/xenial64"
     config.vm.provider :virtualbox do |vb|
@@ -55,13 +53,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # argument is a set of non-required options.
   config.vm.synced_folder "./data", "/vagrant_data"
   # Mount shared folder using NFS
-
-  ## other options
-  # config.vm.synced_folder ".", "/vagrant"
-  # config.vm.synced_folder ".", "/vagrant",
-  # id: "core",
-  # :nfs => true,
-  # :mount_options => ['nolock,vers=3,udp,noatime']
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
