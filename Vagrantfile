@@ -7,6 +7,21 @@ VAGRANTFILE_API_VERSION = "2"
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  # increase disk < ubuntu 17.10
+  required_plugins = %w( vagrant-vbguest vagrant-disksize )
+  _retry = false
+  required_plugins.each do |plugin|
+      unless Vagrant.has_plugin? plugin
+          system "vagrant plugin install #{plugin}"
+          _retry=true
+      end
+  end
+
+  if (_retry)
+      exec "vagrant " + ARGV.join(' ')
+  end
+
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
@@ -14,8 +29,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   
+  
   config.vm.define "vagrant-server" do |os|
-    os.vm.box = "v0rtex/xenial64"
+    os.vm.box = "ubuntu/xenial64"
+    os.disksize.size = "60GB"
     config.vm.provider :virtualbox do |vb|
         vb.name = "vagrant-server"
     end

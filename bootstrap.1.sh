@@ -7,7 +7,6 @@ Update () {
 }
 Update
 
-
 echo "-- Install tools and helpers --"
 sudo apt-get install -y --force-yes python-software-properties vim htop curl git npm build-essential libssl-dev
 
