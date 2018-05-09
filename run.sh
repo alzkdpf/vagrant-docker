@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # make sync folder
-mkdir data
+mkdir ../data
 
 # run script
 vagrant up --provider virtualbox
