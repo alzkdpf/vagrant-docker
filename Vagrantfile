@@ -37,6 +37,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   TCP_PORTS_LIST={
     "8080" => 8080, # web
+    "5000" => 5000 # jenkins
   }
 
   UDP_PORTS_LIST.each do |guest, host|

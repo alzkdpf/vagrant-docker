@@ -26,6 +26,7 @@ Update
 
 # install docker
 sudo apt-get install -y docker-ce
+sudo apt-get install -y docker-compose
 
 echo "-- Install NodeJS --"
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
