@@ -8,20 +8,6 @@ VAGRANTFILE_API_VERSION = "2"
 # you're doing.
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  # increase disk < ubuntu 17.10
-  required_plugins = %w( vagrant-vbguest vagrant-disksize )
-  _retry = false
-  required_plugins.each do |plugin|
-      unless Vagrant.has_plugin? plugin
-          system "vagrant plugin install #{plugin}"
-          _retry=true
-      end
-  end
-
-  if (_retry)
-      exec "vagrant " + ARGV.join(' ')
-  end
-
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
@@ -31,10 +17,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   
   config.vm.define "vagrant-server" do |os|
-    os.vm.box = "ubuntu/xenial64"
-    os.disksize.size = "60GB"
+    os.vm.box = "v0rtex/xenial64"
     config.vm.provider :virtualbox do |vb|
-        vb.name = "vagrant-server"
+        vb.name = "vagrant-server2"
     end
   end
 
@@ -93,7 +78,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #   # Customize the amount of memory on the VM:
   #   vb.memory = "1024"
   # end
-  #
+
+  config.ssh.insert_key = false
+
   # View the documentation for the provider you are using for more
   # information on available options.
   # Assign a quarter of host memory and all available CPU's to VM
@@ -117,6 +104,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       vb.customize ["modifyvm", :id, "--memory", mem]
       vb.customize ["modifyvm", :id, "--cpus", cpus]
+
   end
 
   # Enable provisioning with a shell script. Additional provisioners such as
